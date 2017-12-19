@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			
+		}
+			.banner{
+				width:560px;
+				height: 300px;
+				margin: 50px auto 0 ;
+				position: relative;
+				background: yellow;
+			/*border: 1px solid salmon;*/
+			}
+			.banner a{
+            position: absolute;
+            width: 30px;
+            height: 60px;
+            top: 140px;
+            font-size: 50px;
+            font-weight: bold;
+            line-height: 60px;
+            text-align: center;
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            cursor: pointer;
+
+
+        }
+         .banner a.next{
+            right:0px;
+        }
+        .banner a.prev{
+        	left: 0px;
+        }
+        
+        
+        .banner ul li{
+        	
+        	list-style: none;
+        	width: 112px;
+            height: 300px;
+            float: left;
+            position: relative;
+            transform-style: preserve-3d; /*在他的父盒子上添加3d动画*/
+          
+        }
+        
+        .banner ul li span{
+        	width: 112px;
+        	height: 300px;
+        	position: absolute; /*给span添加定位 定位到他的父盒子上*/
+            left: 0;
+            top: 0;
+        
+        }
+      /*  插入第一个图片,把第一个图片Z轴平移盒子的一半150px*/
+         .banner ul li span:nth-child(1) {
+            background-image: url(img/1.jpg);
+            background-repeat: no-repeat;
+            transform:translateZ(150px);
+        }
+      /*  插入第二张图片,第二张图片Y轴旋转-150px 并旋转90度*/
+        .banner ul li span:nth-child(2) {
+            background-image: url(img/2.jpg);
+            background-repeat: no-repeat;
+            transform: translateY(-150px) rotateX(90deg);
+        }
+      /*插入第三张图片,把第三张图片的Z轴旋转-150度,X轴旋转180度*/
+        .banner ul li span:nth-child(3) {
+            background-image: url(img/3.jpg);
+            background-repeat: no-repeat;
+            transform: translateZ(-150px) rotateX(180deg);
+        }
+          /*插入第三张图片,把第三张图片的y轴旋转150度,X轴旋转270度*/
+        .banner ul li span:nth-child(4) {
+            background-image: url(img/4.jpg);
+            background-repeat: no-repeat;
+            transform: translateY(150px)  rotateX(270deg);
+        }
+        /*  把span背景图片定位*/
+        .banner ul li:nth-child(2) span {
+            background-position: -112px;
+          
+        }
+
+        .banner ul li:nth-child(3) span {
+            background-position: -224px;
+           
+        }
+
+        .banner ul li:nth-child(4) span {
+            background-position: -336px;
+        }
+
+        .banner ul li:nth-child(5) span {
+            background-position: -448px;
+        }
+       .banner ul li {
+           transition: all 1s; /* 过渡时间*/
+        }
+
+		</style>
+	</head>
+	<body>
+		<div class="banner">
+			<ul>
+				<li><span></span><span></span><span></span><span></span></li>
+				<li><span></span><span></span><span></span><span></span></li>
+				<li><span></span><span></span><span></span><span></span></li>
+				<li><span></span><span></span><span></span><span></span></li>
+				<li><span></span><span></span><span></span><span></span></li>
+			</ul>
+			
+			
+			<a class="prev"id="prev">
+				&lt;
+			</a>
+			
+			<a class="next"id="next">
+				&gt;
+			</a>
+			
+			
+			
+			
+			
+		</div>
+		
+	</body>
+	<script src="js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var i=0;
+		var timer=null;
+		function $(aa){
+			return document.getElementsByClassName(aa);
+		}
+		var lis=$("banner")[0].children[0].children;
+		$("next")[0].onclick=auto
+		   function auto(){
+			i--;
+			for (var j=0;j<lis.length;j++) {
+				lis[j].style.transform="rotateX("+i*90+"deg)"
+				lis[j].style.transition="all .5s ease "+j*0.25+"s";
+				
+			}
+		}
+		$("prev")[0].onclick=function(){
+			i++;
+			for (var j=0;j<lis.length;j++) {
+				lis[j].style.transform="rotateX("+i*90+"deg)"
+				lis[j].style.transition="all .5s ease "+j*0.25+"s";
+				
+			}
+		
+		}
+		
+		timer=setInterval(auto,9000)
+	</script>
+</html>
